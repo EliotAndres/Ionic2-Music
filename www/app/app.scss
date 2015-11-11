@@ -1,35 +1,306 @@
-// To customize the look and feel of Ionic, you can override
-// the Sass variables found in Ionic's source scss files.
+@import 'scss/bourbon/bourbon'; // http://bourbon.io/
 
+@import 'scss/partials/variables'; // colors, fonts etc...
 
-// App Color Variables
-// ---------------------------------
-// It's highly recommended to change the default colors
-// to match your app's branding. Ionic uses a Sass map of
-// colors so you can add, rename and remove colors as needed.
-// The "primary" color is the only required color in the map.
+@import 'scss/partials/mixins'; // custom mixins
 
-$colors: (
+@import 'scss/partials/layout'; // responsive grid and media queries
 
-  primary:    #387ef5,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
+@import 'scss/play-pause'; // play pause button
 
-);
-
-
+@import 'scss/loader'; //loader
 
 // Ionic Sass
 // ---------------------------------
 @import "ionic";
 
+/* -------------------------------- 
+
+Primary style
+
+-------------------------------- */
+
+*, *::after, *::before {
+  box-sizing: border-box;
+  outline: none;
+}
+
+html {
+  font-size: 62.5%;
+}
 
 
-// Import your Sass files here
-// ---------------------------------
-@import "item-details/item-details",
-        //"list/list",
-        "hello-ionic/hello-ionic";
+
+body {
+  font: {
+	size: 1.6rem;
+	family: $primary-font;
+    weight: 300;
+  }
+  color: $color-1;
+  text-align: center;
+  background-color: $lightgrey;
+}
+
+a {
+  color: $color-2;
+  text-decoration: none;
+}
+
+h1, h2 {
+  font-family: $secondary-font;
+
+}
+
+.page-wrapper {
+  margin-bottom: 70px;
+}
+/* -------------------------------- 
+
+Patterns - reusable parts of our design
+
+-------------------------------- */
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+/* -------------------------------- 
+
+Header
+
+-------------------------------- */
+.logo {
+  max-width: 100%;
+  margin: 50px auto;
+}
+
+
+/* --------------------------------
+
+Main
+
+-------------------------------- */
+
+.search{
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+
+  &_form{
+    display: flex;
+    height: 50px;
+    line-height: 40px;
+
+    &_button {
+      cursor: pointer;
+      background: $lightgrey;
+      text-transform: uppercase;
+      margin: 0 auto;
+      font-size: 1.1em;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      border: 1px solid $color-1;
+      border-left: none;
+      color: $color-1;
+      width: 50px;
+      margin-left: -51px;
+    }
+
+    &_input {
+      background: $lightgrey;
+      padding: 0.5em 1em 0.5em 0.7em;
+      flex-grow: 1;
+      margin:0 auto;
+      color: $color-1;
+      border-radius: 2px;
+      max-width: 100%;
+      border: 1px solid $color-1;
+      border-right: none;
+      font-size: 1.3em;
+      overflow: visible;
+      transition: opacity 0.3s ease 0s;
+
+/*
+      @include placeholder {
+        color: lighten($color-1, 20);
+      }
+*/
+    }
+  }
+
+  &_results {
+    position: absolute;
+    top:50px;
+    overflow: visible;
+    background: lightcoral;
+    list-style:none;
+    color: white;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0px;
+
+    &_track{
+      padding: 5px 1em;
+      background: lightcoral;
+      z-index: 2;
+      border-bottom: 1px solid $color-1;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      position: relative;
+
+    &:hover, &:active, &:focus{
+      background: $color-1;
+      cursor: pointer;
+    }
+
+    }
+  }
+}
+
+
+.track.ng-enter, .track.ng-move {
+  -webkit-transition:0.5s linear all;
+  -moz-transition:0.5s linear all;
+  -o-transition:0.5s linear all;
+  transition:0.5s linear all;
+  opacity:0;
+}
+
+.track.ng-enter.ng-enter-active,
+.track.ng-move.ng-move-active {
+  opacity:1;
+}
+
+.track.ng-enter-stagger {
+  transition-delay: 0.05s;
+  animation-delay: 0.05s;
+}
+
+
+.venn-result{
+  list-style:none;
+  padding: 20px;
+}
+
+.track{
+  overflow: hidden;
+  position: relative;
+  background: $color-1;
+  cursor: pointer;
+  font-weight: 300;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  color: white;
+  text-align: left;
+
+  &_background-image {
+	position: absolute;
+	top: 0;
+    margin: -7px;
+	left: 0;
+	height: 70px;
+	width: calc(100% + 14px);
+	background-size: 100% auto;
+	z-index: 0;
+	filter: blur(7px);
+    animation: fade 8s;
+    -webkit-animation: fade 8s;
+    transition: background ease-in-out 0.5s;
+  }
+
+  &_content {
+	position: relative;
+	z-index: 1;
+
+	padding: 15px;
+	background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+
+/* --------------------------------
+
+Status bar
+
+-------------------------------- */
+.status {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  background: $color-1;
+  padding-right: 20px;
+  height: 70px;
+  color: white;
+  width: 100%;
+  display: flex;
+  box-shadow: 0px -1px 10px 1px rgba(0, 0, 0, 0.5);
+
+  &_time {
+    line-height: 70px;
+    font-size: 12px;
+    margin-top: 1px; //Pixel perfect or what ?
+  }
+
+  &_info{
+    text-align: left;
+    padding: 16px 10px;
+    margin-right: 5px;
+    width: 30%;
+    font-size: 15px;
+
+    &_title, &_artist {
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      position: relative;
+      overflow: hidden;
+    }
+  }
+
+  &_progress-container{
+    height: 25px;
+    flex-grow: 1;
+    margin: 25px 20px 0;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    padding: 10px 0;
+  }
+
+  &_progress-bar{
+    background: white;
+    height: 5px;
+    width: 100%;
+    border-radius: 3px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    opacity: 0.2;
+  }
+  
+  &_progress-content{
+    border-radius: 3px;
+    background: white;
+    height: 5px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+
+}
+/* -------------------------------- 
+
+Footer
+
+-------------------------------- */
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-bottom: 10px;
+}
+
 

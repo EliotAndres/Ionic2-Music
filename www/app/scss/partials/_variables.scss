@@ -1,0 +1,24 @@
+// colors
+
+$color-1: 	#dd4b39;
+$color-2: 	#00aeef;
+$color-3: 	#ffb700;
+$color-4: 	#65d29b;
+$color-5: 	#69458D;
+$color-6: 	#f6772c;
+$color-7: 	#1c1726;
+$color-8: 	#ffffff;
+$white:	  	#ffffff;
+$black:	  	#000;
+$grey:	  	#5e5e5e;
+$lightgrey:	#f4f4f4;
+$background: lightgrey;
+// fonts
+
+$primary-font: 'Roboto', sans-serif;
+$secondary-font: 'Vollkorn', serif;
+
+// animation duration
+
+$fold-animation: .5s;
+$fold-content-animation: .2s*(3+1)/2; // replace 3 with number of elements that you want to animate

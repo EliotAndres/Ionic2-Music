@@ -1,0 +1,78 @@
+
+
+
+
+.material-icon:before,
+.material-icon:after {
+  content: " ";
+  background: transparent;
+  display: block;
+  position: relative;
+  width: 50px;
+  height: 20px;
+  z-index: 1;
+  transform: translateY(-35px);
+  transition: all 500ms ease;
+}
+
+
+/* We want to use the square and mask it so we might as well use the same CSS as the stop */
+.play span {
+  height: 17px;
+}
+
+.play .second {
+  height: 22px;
+  @include transform(translateY(12px));
+}
+
+.play {
+  @include transform(rotate(180deg));
+}
+
+.play:before {
+  @include transform(translateY(-12px) translateX(-8px) rotate(-26deg));
+  background: $color-1;
+
+}
+
+.play:after {
+  @include transform(translateY(5px) translateX(-11px) rotate(26deg));
+  background: $color-1;
+
+}
+
+
+.pause {
+  @include transform(rotate(90deg));
+}
+
+.pause span {
+  height: 12px;
+}
+
+.pause .second {
+  @include transform(translateY(22px));
+}
+
+.material-icon {
+  width: 35px;
+  height: 35px;
+  margin: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.material-icon span,
+.material-icon {
+  transition: all 500ms ease;
+}
+
+.material-icon span {
+  background-color: #fff;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
