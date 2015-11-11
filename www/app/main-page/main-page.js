@@ -11,8 +11,8 @@ export class MainPage {
     this.nav = nav;
   }
   
-  addId(event) { 
-       console.log('tt', event.value);
+  addId(track) { 
+       console.log('tt', track.id);
    }
 
 }
