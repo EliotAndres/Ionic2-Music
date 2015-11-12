@@ -5,7 +5,7 @@
     "del": "1.2.0",
     "gulp": "3.9.0",
     "gulp-autoprefixer": "2.3.1",
-    "gulp-sass": "2.0.4",
+    "gulp-sass": "2.1.0",
     "gulp-watch": "4.3.4",
     "minimist": "1.1.1",
     "typescript": "1.5.3",
@@ -13,5 +13,9 @@
   },
   "dependencies": {
     "ionic-framework": "2.0.0-alpha.31"
-  }
+  },
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }

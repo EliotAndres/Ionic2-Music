@@ -1,12 +1,11 @@
 <div class="search">
-  <form class="search_form" (ng-submit)="searchTracks()">
-    <input [(ng-model)]="searchModel" placeholder="Enter a song you love" class="search_form_input"/>
-    <button class="search_form_button"></button>
-  </form>
-  
+  <div class="wrapper">
+    <form class="search_form" (ng-submit)="searchTracks()">
+      <input [(ng-model)]="searchModel" placeholder="Enter a song you love" class="search_form_input"/>
+      <button class="search_form_button">></button>
+    </form>
+  </div>  
   <ul *ng-if="items" class="search_results">
- 
-    
      <li (click)="addTrack(item.id)"  class="search_results_track" *ng-for="#item of items; #i = index">
         <span>{{ item.user.username }} - {{ item.title }}</span>
     </li>
