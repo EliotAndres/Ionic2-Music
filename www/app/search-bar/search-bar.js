@@ -21,7 +21,6 @@ export class SearchBar{
 
     addTrack(id){
       this.items = null;
-	    console.log('query', this.searchModel);
       this.change.next({id:id});
     }
 
