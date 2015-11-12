@@ -11,5 +11,14 @@
 
 <img class="logo" src="img/logo.png" />
 <search-bar (change)="addId($event)" ></search-bar>
+<ul *ng-if="tracks" class="venn-result">
+   <li class="track" *ng-for="#track of tracks; #i = index">
+      <div class="track_background-image" [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
+      </div>
 
+      <div class="track_content">
+        {{ track.genre }} {{ track.title }} ({{ track.total_count }})
+      </div>
+  </li>
+</ul>
 </ion-content>
