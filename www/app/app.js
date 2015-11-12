@@ -2,20 +2,26 @@ import {App, IonicApp, Platform} from 'ionic/ionic';
 
 import {MainPage} from './main-page/main-page';
 import {AboutPage} from './about/about';
+import {MusicPlayerService} from './service/music-player';
 import {bootstrap, Component} from "angular2/angular2";
 
 @App({
-  templateUrl: 'app/app.html'
+  templateUrl: 'app/app.html',
+  providers: [MusicPlayerService]
 })
 
 class MyApp {
-  constructor(app: IonicApp, platform: Platform) {
+  constructor(app: IonicApp, platform: Platform, public musicPlayerService: MusicPlayerService) {
 
     // set up our app
     this.app = app;
     this.platform = platform;
     this.initializeApp();
 
+	
+    
+    this.musicPlayerService.init('f615a58a237bb0435f9c7de57070cdf4');
+    
     // set our app's pages
     this.pages = [
       { title: 'Venn Music', component: MainPage },
@@ -29,10 +35,11 @@ class MyApp {
   initializeApp() {
     this.platform.ready().then(() => {
       console.log('Platform ready');
-
+      
       if (typeof StatusBar !== 'undefined') {
         StatusBar.styleDefault();
       }
+      
     });
   }
 
@@ -43,5 +50,6 @@ class MyApp {
     let nav = this.app.getComponent('nav');
     nav.setRoot(page.component);
   }
+  
 }
 

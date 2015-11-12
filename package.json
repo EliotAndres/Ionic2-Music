@@ -14,7 +14,9 @@
   "dependencies": {
     "ionic-framework": "2.0.0-alpha.31"
   },
-  "cordovaPlugins": [],
+  "cordovaPlugins": [
+    "cordova-plugin-whitelist"
+  ],
   "cordovaPlatforms": [
     "ios",
     "android"

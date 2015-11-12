@@ -16,7 +16,7 @@
       <div class="track_background-image" [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
       </div>
 
-      <div class="track_content">
+      <div class="track_content" (click)="playTrack(track)">
         {{ track.genre }} {{ track.title }} ({{ track.total_count }})
       </div>
   </li>
