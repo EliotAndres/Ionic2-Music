@@ -25,6 +25,8 @@ export class SearchBar{
     }
 
     searchTracks(){
+      if(typeof cordova !== 'undefined') cordova.plugins.Keyboard.close();
+      
 	    var url = 'http://api.soundcloud.com/tracks?q=' + this.searchModel + '&client_id=f615a58a237bb0435f9c7de57070cdf4&format=json&_status_code_map[302]=200';
         this.http.get(url)
 	      .map(res => res.json())

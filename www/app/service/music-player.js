@@ -4,31 +4,80 @@ import {Http} from 'angular2/http';
 
 @Injectable()
 export class MusicPlayerService {
+  
+  currentTrack;
+  isPlaying: boolean;
+  trackProgress = 0;
+  
 	constructor(app: IonicApp, http: Http) {
 		this.app = app;
 		this.http = http;
 	}
 
 	init(clientId){
-		//set up soundcloud 
-		SC.initialize({
-      client_id: clientId
-	  });
 	  this.initSoundManager();
-	 
 	}
 	
   playTrack(track) {
-    console.log(track);
-     soundManager.createSound({
-            id: track.id, // optional: provide your own unique id
-            url: 'http://api.soundcloud.com/tracks/'+ track.id + '/stream?client_id=f615a58a237bb0435f9c7de57070cdf4'
-          });
-          
-        soundManager.play(track.id);
+
+    if (typeof this.getCurrentTrack() !== 'undefined') this.stop();
+    
+    soundManager.createSound({
+      id: track.id, // optional: provide your own unique id
+      url: 'http://api.soundcloud.com/tracks/'+ track.id + '/stream?client_id=f615a58a237bb0435f9c7de57070cdf4'
+    });
+        
+    soundManager.play(track.id);
+    
+    this.setCurrentTrack(track);
+    this.setPlayingStatus(true);
+  }
+  
+  play() {
+    soundManager.play(this.getCurrentTrack().id);
+    this.setPlayingStatus(true);
+  }
+  
+  pause() {
+    soundManager.pause(this.getCurrentTrack().id);
+    this.setPlayingStatus(false);
+  }
+  
+  stop() {
+      this.pause();
+      this.resetProgress();
+      soundManager.stopAll();
+      soundManager.unload(this.getCurrentTrack());
+  }
+  
+  resetProgress() {
+    trackProgress = 0;
+  }
+    
+  togglePlay() {
+    if(this.isPlaying) this.pause();
+    else  this.play();
+  }
+  
+  setPlayingStatus(playing: boolean) {
+    this.isPlaying = playing;
+  }
+  
+  getPlayingStatus(): boolean {
+    return this.isPlaying;
+  }
+  
+  setCurrentTrack(track) {
+    this.currentTrack = track;
+  }
+
+  getCurrentTrack() {
+    return this.currentTrack;
   }
   
   initSoundManager(){
+    
+    var _this = this;
     soundManager.setup({
             preferFlash: false, // prefer 100% HTML5 mode, where both supported
             debugMode: false, // enable debugging output ($log.debug() with HTML fallback)
@@ -65,7 +114,10 @@ export class MusicPlayerService {
               whileloading: function() {
               },
               whileplaying: function() {
-             
+                
+                      _this.trackProgress = ((this.position / this.duration) * 100);
+                console.log(_this.trackProgress)
+      
               },
               onfinish: function() {
                 

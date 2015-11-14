@@ -15,7 +15,9 @@
     "ionic-framework": "2.0.0-alpha.31"
   },
   "cordovaPlugins": [
-    "cordova-plugin-whitelist"
+    "cordova-plugin-whitelist",
+    "ionic-plugin-keyboard",
+    "cordova-plugin-statusbar"
   ],
   "cordovaPlatforms": [
     "ios",

@@ -222,6 +222,7 @@ Main
 Status bar
 
 -------------------------------- */
+
 .status {
   position: fixed;
   bottom: 0;
@@ -286,6 +287,12 @@ Status bar
     left: 0;
   }
 
+}
+
+
+//Hide if keyboard is open
+.keyboard-open .status {
+  display: none;
 }
 /* --------------------------------
 

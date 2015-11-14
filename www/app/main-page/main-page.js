@@ -3,12 +3,15 @@ import {bootstrap, Component, View, NgIf, NgFor, NgStyle} from "angular2/angular
 import {SearchBar} from "../search-bar/search-bar";
 import {Http} from 'angular2/http';
 import {MusicPlayerService} from '../service/music-player';
+import {PlayPauseButton} from '../directive/play-pause-button';
+import {PlayPauseButton} from '../directive/seek-bar';
 
 
 @Page({
   templateUrl: 'app/main-page/main-page.html',
-  directives: [SearchBar, NgStyle]
+  directives: [SearchBar, NgStyle, PlayPauseButton]
 })
+
 export class MainPage {
   tracks;
   constructor(nav: NavController, public http: Http, public musicPlayerService: MusicPlayerService) {

@@ -17,8 +17,6 @@ class MyApp {
     this.app = app;
     this.platform = platform;
     this.initializeApp();
-
-	
     
     this.musicPlayerService.init('f615a58a237bb0435f9c7de57070cdf4');
     
@@ -52,4 +50,19 @@ class MyApp {
   }
   
 }
+
+
+
+window.addEventListener('native.keyboardshow', keyboardShowHandler);
+window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+function keyboardShowHandler(e){
+    document.body.classList.add('keyboard-open');
+}
+
+function keyboardHideHandler(e){
+   document.body.classList.remove('keyboard-open');
+
+}
+
 
