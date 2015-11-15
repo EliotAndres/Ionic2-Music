@@ -22,7 +22,7 @@ export class MainPage {
   }
 
   useTrack(event) {
-    console.log('test', event.track);
+    if (typeof event.track === 'undefined') return;  
     this.currentTrack = event.track;
     this.loading = true;
     var url = 'http://api.ndres.me:3000/api/soundcloud?trackIds=' + event.track.id ;
