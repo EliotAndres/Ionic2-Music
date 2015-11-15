@@ -6,7 +6,7 @@
     </form>
   </div>  
   <ul *ng-if="items" class="search_results">
-     <li (click)="addTrack(item.id)"  class="search_results_track" *ng-for="#item of items; #i = index">
+     <li (click)="addTrack(item)"  class="search_results_track" *ng-for="#item of items; #i = index">
         <span>{{ item.user.username }} - {{ item.title }}</span>
     </li>
   </ul>

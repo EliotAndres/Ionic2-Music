@@ -9,41 +9,48 @@
 
 <ion-content padding class="getting-started">
 
-  <img class="logo" src="img/logo.png" />
-  <search-bar (change)="addId($event)" ></search-bar>
+  <img class="logo" src="public/img/logo.png" />
+  <search-bar (select)="useTrack($event)" ></search-bar>
   
+  <div class="headline" *ng-if="currentTrack.title">
+    Tracks in playlists containing {{currentTrack.user.username}} - {{currentTrack.title}} :
+  </div>
+  
+  <div class="loader-wrapper" *ng-if="loading">
+    <div class="loader">
+    </div>  
+  </div>
+    
   <ul *ng-if="tracks" class="venn-result">
      <li class="track" *ng-for="#track of tracks; #i = index">
-        <div class="track_background-image" [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
+        <div class="track_background-image"  [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
         </div>
-  
-        <div class="track_content" (click)="playTrack(track)">
-          {{ track.genre }} {{ track.title }} ({{ track.total_count }})
+        <div class="track_content" [ng-class]="{active: track.id == getCurrentTrack().id}" (click)="playTrack(track)">
+          {{ track.user.username }} {{ track.title }} ({{ track.total_count }})
         </div>
     </li>
   </ul>
 
 </ion-content>
 
-<ion-footer-bar class="hide-on-keyboard-open">
-  <div class="status">
-  <a play-pause-button class="material-icon">
-    <span class="first"></span>
-    <span class="second"></span>
-    <span class="third"></span>
-  </a>
-  
-  <div class="status_info">
-    <div class="status_info_title"></div>
-    <div class="status_info_artist"></div>
+
+<div class="status">
+<a play-pause-button class="material-icon">
+  <span class="first"></span>
+  <span class="second"></span>
+  <span class="third"></span>
+</a>
+<a next-button class="status_button-container">
+   <img class="status_button"src="public/img/icon-next.png" />
+</a>
+
+<div class="status_wrapper" *ng-if="getCurrentTrack().title">
+  <div accesskey="" class="status_wrapper_artist">{{ getCurrentTrack().user.username}}</div>
+  <div class="status_wrapper_title">{{ getCurrentTrack().title}}</div>
+  <div seek-bar class="progress" >
+    <div class="progress_bar"></div>
+    <div class="progress_content" seek-bar-status></div>
   </div>
-  
-  <div class="status_time"></div>
-  
-  <div seek-track="" class="status_progress-container">
-    <div class="status_progress-bar"></div>
-    <div class="status_progress-content"></div>
-  </div>
-  
-  <div class="status_time status_time--total"></div>
-</div></ion-footer-bar>
+</div>
+</div>
+

@@ -5,23 +5,23 @@ import {Http} from 'angular2/http';
     selector: 'search-bar',
     templateUrl: 'app/search-bar/search-bar.html',
     directives:[FORM_DIRECTIVES, NgIf, NgFor],
-    events: ['change'],
+    events: ['select'],
 
 })
 export class SearchBar{
 	searchModel;
 	items;
 	constructor(public http: Http) {
-    	this.change = new EventEmitter();
+    	this.select = new EventEmitter();
   	}
 
   	logError(err) {
 	    console.error('There was an error: ', err);
   	}
 
-    addTrack(id){
+    addTrack(track){
       this.items = null;
-      this.change.next({id:id});
+      this.select.next({track:track});
     }
 
     searchTracks(){

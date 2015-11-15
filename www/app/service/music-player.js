@@ -8,7 +8,7 @@ export class MusicPlayerService {
   currentTrack;
   isPlaying: boolean;
   trackProgress = 0;
-  
+  trackList = [];
 	constructor(app: IonicApp, http: Http) {
 		this.app = app;
 		this.http = http;
@@ -48,6 +48,7 @@ export class MusicPlayerService {
       this.resetProgress();
       soundManager.stopAll();
       soundManager.unload(this.getCurrentTrack());
+      soundManager.destroySound(this.getCurrentTrack().id);
   }
   
   resetProgress() {
@@ -75,6 +76,47 @@ export class MusicPlayerService {
     return this.currentTrack;
   }
   
+  getCurrentPosition() {
+    return this.currentPosition;
+  }
+  
+  setCurrentPosition(position) {
+    this.currentPosition = position;
+  }
+  
+  getDuration(position) {
+    if (typeof this.getCurrentTrack() === 'undefined') return 0;  
+    
+    var sound = soundManager.getSoundById(this.getCurrentTrack().id);
+    return sound.durationEstimate;
+  }
+  
+  nextTrack(){
+    if (typeof this.getCurrentTrack() === 'undefined'
+    || this.trackList.length < 1) 
+      return;  
+      
+    this.stop();
+    
+    console.log(this.trackList.indexOf(this.getCurrentTrack()));
+    
+    var nextPosition = this.trackList.indexOf(this.getCurrentTrack()) + 1;
+    
+    if(this.trackList.length > nextPosition) {
+      this.playTrack(this.trackList[nextPosition]);
+    }else{
+      this.playTrack(this.trackList[0]);
+    }
+  }
+  
+  addToPlaylist(track) {
+    this.trackList.push(track);
+  }
+  
+  clearPlaylist() {
+    this.trackList = [];
+  }
+  
   initSoundManager(){
     
     var _this = this;
@@ -100,7 +142,9 @@ export class MusicPlayerService {
               onid3: null, // callback function for "ID3 data is added/available"
               onload: null, // callback function for "load finished"
               onstop: null, // callback for "user stop"
-              onfailure: 'nextTrack', // callback function for when playing fails
+              onfailure: function() {
+                _this.nextTrack();
+              }, // callback function for when playing fails
               onpause: null, // callback for "pause"
               onplay: null, // callback for "play" start
               onresume: null, // callback for "resume" (pause toggle)
@@ -114,14 +158,17 @@ export class MusicPlayerService {
               whileloading: function() {
               },
               whileplaying: function() {
-                
-                      _this.trackProgress = ((this.position / this.duration) * 100);
-                console.log(_this.trackProgress)
-      
+                _this.currentPosition = ((this.position / this.duration) * 100);      
               },
               onfinish: function() {
-                
-              }
+                _this.nextTrack();
+              },
+              onload: function() {
+                if (this.readyState == 2){
+                   console.log('Error loading track');
+                   _this.nextTrack();
+                 }  
+              });
             }
           })
   }
